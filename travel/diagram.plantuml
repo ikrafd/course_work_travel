@@ -1,0 +1,80 @@
+@startuml
+
+' Клас користувача
+class UserEntity {
+    + String userID
+    + String email
+    + String name
+    + int tripsCount
+    + int visitedPlacesCount
+    + double spentMoney
+    + int citiesCount
+}
+
+' Клас подорожі
+class TripEntity {
+    + String userID
+    + String tripID
+    + double totalBudget
+}
+
+' Клас міста
+class CityEntity {
+    + String cityID
+    + String cityName
+    + List<String> placeIDs
+    + List<String> dishIDs
+    + List<String> accommodationIDs
+    + double cityBudget
+    + DateTime startDay
+    + DateTime endDay
+}
+
+' Клас страви
+class DishEntity {
+    + String dishID
+    + String name
+    + String restaurant
+}
+
+' Клас місця
+class PlaceEntity {
+    + String placeID
+    + String name
+    + String address
+}
+
+' Клас проживання
+class AccommodationEntity {
+    + String accommodationID
+    + String name
+    + String address
+    + DateTime startDay
+    + DateTime endDay
+}
+
+' Клас файлу
+class FileEntity {
+    + String id
+    + String name
+    + String fileUrl
+    + String fileType
+}
+
+' Клас бюджету
+class UserBudgetEntity {
+    + String userID
+    + List<BudgetItem> dishPrices
+    + List<BudgetItem> placePrices
+    + List<BudgetItem> accommodationPrices
+}
+
+' Зв’язки між класами
+UserEntity "1" -- "0..*" TripEntity
+TripEntity "1" *-- "1..*" CityEntity
+CityEntity "1..*" o-- "0..*" PlaceEntity
+CityEntity "1..*" o-- "0..*" DishEntity
+CityEntity "1..*" o-- "0..*" AccommodationEntity
+UserEntity "1" -- "1" UserBudgetEntity
+
+@enduml
